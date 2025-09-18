@@ -1,0 +1,40 @@
+[
+  {
+    "id": "entrance",
+    "title": "Monastery Entrance",
+    "imageUrl": "/data/entrance.jpg",
+    "thumbnailUrl": "/data/entrance.jpg",
+    "narration": {
+      "en": "Welcome to the monastery entrance. This gateway symbolizes the transition from the ordinary world to the sacred.",
+      "hi": "मठ के प्रवेश द्वार में आपका स्वागत है। यह द्वार सामान्य दुनिया से पवित्र दुनिया में प्रवेश का प्रतीक है।",
+      "ne": "मठको प्रवेशद्वारमा स्वागत छ। यो ढोका साधारण जगतबाट पवित्र स्थानमा प्रवेशको प्रतीक हो।"
+    }
+  },
+  {
+    "id": "courtyard",
+    "title": "Courtyard",
+    "imageUrl": "/data/courtyard.jpg",
+    "thumbnailUrl": "/data/courtyard.jpg",
+    "narration": {
+      "en": "The courtyard hosts festivals and community gatherings with prayer flags fluttering in the mountain wind.",
+      "hi": "आंगन में पर्व और सामुदायिक कार्यक्रम होते हैं जहाँ पर्वतीय हवा में प्रार्थना ध्वज लहराते हैं।",
+      "ne": "आँगनमा पर्व तथा सामुदायिक कार्यक्रमहरू आयोजना गरिन्छ जहाँ प्रार्थना ध्वजहरू पर्वतीय हावामा फहरिन्छन्।"
+    }
+  },
+  {
+    "id": "main-hall",
+    "title": "Main Prayer Hall",
+    "imageUrl": "/data/mainhall.jpg",
+    "thumbnailUrl": "/data/mainhall.jpg",
+    "narration": {
+      "en": "This is the main prayer hall where monks chant and ceremonies take place, adorned with murals and thangkas.",
+      "hi": "यह मुख्य प्रार्थना कक्ष है जहाँ भिक्षु मंत्रोच्चार करते हैं और समारोह होते हैं, भित्तिचित्रों और थंकाओं से सुसज्जित।",
+      "ne": "यो मुख्य प्राथर्ना कक्ष हो जहाँ भिक्षुहरूले मन्त्र उच्चारण गर्छन् र समारोहहरू आयोजना हुन्छन्, भित्ते चित्र र थाङ्काले सजिएको।"
+    }
+  }
+]
+
+
+
+
+
