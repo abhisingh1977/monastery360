@@ -33,6 +33,11 @@ const fadeInUp = {
 }
 
 const VirtualTourViewer = dynamic(() => import("@/components/VirtualTourViewer"), { ssr: false })
+// Travel components (client-only)
+const HotelCard = dynamic(() => import("@/components/travel/HotelCard"), { ssr: false })
+const FlightSearch = dynamic(() => import("@/components/travel/FlightSearch"), { ssr: false })
+const ItineraryCards = dynamic(() => import("@/components/travel/ItineraryCards"), { ssr: false })
+const TravelMap = dynamic(() => import("@/components/travel/TravelMap"), { ssr: false })
 
 const languages = [
   { code: "en", name: "English", flag: "🇺🇸" },
@@ -248,6 +253,61 @@ export default function VirtualToursPage() {
           </div>
         </div>
       </div>
+
+      {/* Hotels & Travel Section - visible right after Virtual Tour */}
+      <section className="py-8 bg-white">
+        <div className="container mx-auto px-4">
+          <motion.div className="text-center mb-8" {...fadeInUp}>
+            <Badge className="bg-blue-600 text-white border-blue-500">Hotels & Travel</Badge>
+            <h2 className="text-3xl md:text-4xl font-bold mt-3 text-gray-800">Plan Your Visit</h2>
+            <p className="text-gray-600 mt-2">Find nearby stays, routes, and itineraries for your pilgrimage.</p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <motion.div className="lg:col-span-2" {...fadeInUp}>
+              <Card className="border-blue-200">
+                <CardHeader>
+                  <CardTitle className="flex items-center text-gray-800">
+                    <span className="mr-2">🏨</span>
+                    Hotels Near {selectedSite ? selectedSite.name : "Featured Monasteries"}
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <HotelCard searchTerm={selectedSite?.name || "Sikkim"} isLoading={false} />
+                </CardContent>
+              </Card>
+            </motion.div>
+
+            <motion.div {...fadeInUp}>
+              <Card className="border-blue-200">
+                <CardHeader>
+                  <CardTitle className="flex items-center text-gray-800">
+                    <span className="mr-2">✈️</span>
+                    Flights & Transportation
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <FlightSearch />
+                </CardContent>
+              </Card>
+            </motion.div>
+          </div>
+
+          <motion.div className="mt-8" {...fadeInUp}>
+            <Card className="border-blue-200">
+              <CardHeader>
+                <CardTitle className="flex items-center text-gray-800">
+                  <span className="mr-2">🗺️</span>
+                  Recommended Itineraries
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ItineraryCards />
+              </CardContent>
+            </Card>
+          </motion.div>
+        </div>
+      </section>
     </div>
   )
 }
