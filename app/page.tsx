@@ -175,7 +175,7 @@ export default function HomePage() {
           >
             <Button
               size="lg"
-              className="bg-amber-600 hover:bg-amber-700 text-white px-8 py-4 text-lg hover:scale-105 transition-all duration-300 shadow-xl"
+              className="bg-pink-600 hover:bg-pink-700 text-white px-8 py-4 text-lg hover:scale-105 transition-all duration-300 shadow-xl"
             >
               ▶️ Explore Virtual Tours
             </Button>
