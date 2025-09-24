@@ -12,7 +12,7 @@ import { useRouter } from "next/navigation"
 import { useEffect, useRef, useState } from "react"
 import dynamic from "next/dynamic"
 import { SITES, type Site as HeritageSite } from "@/components/sites-data"
-import L from "leaflet"
+// Avoid importing leaflet on the server; it touches window/document
 
 const MapContainer = dynamic(() => import("react-leaflet").then((m) => m.MapContainer), { ssr: false }) as any
 const TileLayer = dynamic(() => import("react-leaflet").then((m) => m.TileLayer), { ssr: false }) as any
@@ -39,28 +39,37 @@ export default function MapPage() {
   const [selectedSite, setSelectedSite] = useState<HeritageSite | null>(null)
   const mapRef = useRef<any>(null)
   const markerRefs = useRef<Record<string, any>>({})
+  const leafletRef = useRef<any>(null)
 
   useEffect(() => {
-    const id = "leaflet-css"
-    if (!document.getElementById(id)) {
-      const link = document.createElement("link")
-      link.id = id
-      link.rel = "stylesheet"
-      link.href = "https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-      link.crossOrigin = ""
-      document.head.appendChild(link)
+    // Load Leaflet only on the client to avoid SSR window errors
+    const setupLeaflet = async () => {
+      const id = "leaflet-css"
+      if (!document.getElementById(id)) {
+        const link = document.createElement("link")
+        link.id = id
+        link.rel = "stylesheet"
+        link.href = "https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        link.crossOrigin = ""
+        document.head.appendChild(link)
+      }
+
+      const L = await import("leaflet")
+      leafletRef.current = L
+
+      const defaultIcon = new L.Icon({
+        iconUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png",
+        iconRetinaUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png",
+        shadowUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
+        iconAnchor: [12, 41],
+        popupAnchor: [1, -34],
+        iconSize: [25, 41],
+        shadowSize: [41, 41],
+      })
+      ;(L as any).Marker.prototype.options.icon = defaultIcon
     }
 
-    const defaultIcon = new L.Icon({
-      iconUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png",
-      iconRetinaUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png",
-      shadowUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
-      iconAnchor: [12, 41],
-      popupAnchor: [1, -34],
-      iconSize: [25, 41],
-      shadowSize: [41, 41],
-    })
-    ;(L as any).Marker.prototype.options.icon = defaultIcon
+    setupLeaflet().catch(() => {})
   }, [])
 
   // Derive searchable, display-friendly objects from SITES
